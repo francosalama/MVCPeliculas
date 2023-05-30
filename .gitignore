@@ -361,8 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/MVCPeliculas/appsettings.json
-FodyWeavers.xsd
 
 *.appsettings.json
 /MVCPeliculas/appsettings.json
