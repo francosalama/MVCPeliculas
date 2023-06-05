@@ -13,6 +13,7 @@ namespace MVCPeliculas.Models
         [Display(Name = "Imagen")]
         public string LinkFoto { get; set; }
         public int Valoracion { get; set; }
+        [Display(Name = "Año")]
         public int Anio { get; set; }
         public string Sinopsis { get; set; }
 		[EnumDataType(typeof(Genero))]
