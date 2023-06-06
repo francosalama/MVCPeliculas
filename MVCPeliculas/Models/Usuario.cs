@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace MVCPeliculas.Models
 {
@@ -14,6 +15,7 @@ namespace MVCPeliculas.Models
         public string Contrasenia { get; set; }
         [EnumDataType(typeof(Rol))]
         public Rol Rol { get; set; }
+        public ICollection<PeliculaVista> PeliculaVista { get; set; }
 
     }
 }

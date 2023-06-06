@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace MVCPeliculas.Models
 {
@@ -20,6 +21,7 @@ namespace MVCPeliculas.Models
 		public Genero Genero { get; set; }
 		[EnumDataType(typeof(Plataforma))]
 		public Plataforma Plataforma { get; set; }
+        public ICollection<PeliculaVista> PeliculaVista { get; set; }
 
     }
 }
