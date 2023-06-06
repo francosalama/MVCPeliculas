@@ -4,55 +4,45 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>Pelicula</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LinkFoto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LinkFoto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Valoracion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Valoracion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Anio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Anio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sinopsis)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sinopsis)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genero)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genero)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Plataforma)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Plataforma)
-        </dd>
-    </dl>
+    <h1>@Html.DisplayFor(model => model.Nombre)</h1>
+    <div class="row">
+        <dl class="row col-7">
+            <dd class="col-sm-12">
+                <img src="@Html.DisplayFor(model => model.LinkFoto)" style="width:300px;height:300px">
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Valoracion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Valoracion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Anio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Anio)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Genero)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Genero)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Plataforma)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Plataforma)
+            </dd>
+        </dl>
+        <div class="col-5" style="margin-top: 100px">
+            <p>
+                @Html.DisplayFor(model => model.Sinopsis)
+            </p>
+        </div>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

@@ -9,5 +9,6 @@ namespace MVCPeliculas.Context
 		{
 		}
 		public DbSet<Pelicula> Pelicula { get; set; }
-	}
+        public DbSet<Usuario> Usuario { get; set; }
+    }
 }
