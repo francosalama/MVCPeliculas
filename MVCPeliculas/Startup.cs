@@ -13,6 +13,7 @@ using MVCPeliculas.Context;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MVCPeliculas
 {
@@ -37,7 +38,19 @@ namespace MVCPeliculas
 			services.AddDbContext<PeliculaDatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionString:PeliculaDBConnection"]));
 			services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
 			.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-		}
+
+            services.AddControllersWithViews();
+
+            /*Identity*/
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                    options =>
+                    {
+                        options.LoginPath = "/Login";
+                        options.AccessDeniedPath = "/AccesoDenegado";
+                    }
+                );
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,14 +70,17 @@ namespace MVCPeliculas
 
 			app.UseRouting();
 
-			app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-			app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
 					name: "default",	
-					pattern: "{controller=Pelicula}/{action=Index}/{id?}");
+					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
-		}
+
+            app.UseCookiePolicy();
+        }
 	}
 }
