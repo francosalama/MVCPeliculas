@@ -30,8 +30,9 @@ namespace MVCPeliculas.Models
         [DataType(DataType.Password)]
         public string Contrasenia { get; set; }
         [EnumDataType(typeof(Rol))]
-        public Rol Rol { get; set; }
-        public ICollection<PeliculaVista> PeliculaVista { get; set; }
+        public Rol Rol { get; set; } = Rol.Usuario;
+        public List<PeliculaVista> PeliculaVista { get; set; }
+        public List<PeliculaDeseada> PeliculaDeseada { get; set; }
 
     }
 }
