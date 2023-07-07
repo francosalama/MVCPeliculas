@@ -99,6 +99,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Usuario/Logout
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -114,6 +115,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Usuario/Details/1
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -132,6 +134,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Usuario/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -160,6 +163,7 @@ namespace MVCPeliculas.Controllers
         // POST: Usuario/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Mail,Contrasenia,Rol")] Usuario usuario)
         {
             if (id != usuario.Id)
