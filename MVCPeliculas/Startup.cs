@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using MVCPeliculas.Models;
+using System.Security.Claims;
 
 namespace MVCPeliculas
 {
@@ -51,6 +52,10 @@ namespace MVCPeliculas
             {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole(Rol.Admin.ToString()));
                 options.AddPolicy("UserOnly", policy => policy.RequireRole(Rol.Usuario.ToString()));
+                options.AddPolicy("UserIdPolicy", policy => policy.RequireClaim(ClaimTypes.NameIdentifier));
+                //options.AddPolicy("AdminOrUserId", policy =>
+                //    policy.RequireAssertion(context =>
+                //        context.User.IsInRole(Rol.Admin.ToString()) || context.User.HasClaim(c => c.Type == "UserIdPolicy")));
             });
         }
 
