@@ -28,6 +28,8 @@ namespace MVCPeliculas.Models
 
         [Display(Name = "Contraseña")]
         [DataType(DataType.Password)]
+        [Required]
+        [StringLength(12, ErrorMessage = "La contraseña debe tener entre 8 y 12 caracteres.", MinimumLength = 8)]
         public string Contrasenia { get; set; }
         [EnumDataType(typeof(Rol))]
         public Rol Rol { get; set; } = Rol.Usuario;

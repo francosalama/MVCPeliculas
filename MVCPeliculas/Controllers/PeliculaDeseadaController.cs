@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MVCPeliculas.Models;
 
 namespace MVCPeliculas.Controllers
 {
+    [Authorize]
     public class PeliculaDeseadaController : Controller
     {
         private readonly PeliculaDatabaseContext _context;
@@ -20,6 +22,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaDeseada
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var idUsuario = 1;
@@ -28,6 +31,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaDeseada/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +52,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaDeseada/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -70,6 +75,7 @@ namespace MVCPeliculas.Controllers
         // POST: PeliculaDeseada/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var peliculaDeseada = await _context.PeliculaDeseada.FirstOrDefaultAsync(m => m.Id == id);
@@ -79,6 +85,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula/AgregarPeliculaVista/5
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaVista(int? id)
         {
             if (id == null)
@@ -99,6 +106,7 @@ namespace MVCPeliculas.Controllers
         // POST: Pelicula/AgregarPeliculaVista/5
         [HttpPost, ActionName("AgregarPeliculaVista")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaVistaConfirmed(int id)
         {
             var idUsuario = 1;
@@ -120,7 +128,7 @@ namespace MVCPeliculas.Controllers
                 return View(peliculaDB.Pelicula);
             }
         }
-
+        [Authorize]
         private bool PeliculaDeseadaExists(int id)
         {
             return _context.PeliculaDeseada.Any(e => e.UsuarioId == id);

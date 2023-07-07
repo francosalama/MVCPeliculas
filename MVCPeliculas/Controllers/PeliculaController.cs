@@ -22,12 +22,14 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Pelicula.ToListAsync());
         }
 
         // GET: Pelicula/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -154,6 +156,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula/AgregarPeliculaVista/5
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaVista(int? id)
         {
             if (id == null)
@@ -174,6 +177,7 @@ namespace MVCPeliculas.Controllers
         // POST: Pelicula/AgregarPeliculaVista/5
         [HttpPost, ActionName("AgregarPeliculaVista")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaVistaConfirmed(int id)
         {
             var idUsuario = 1;
@@ -195,6 +199,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula/AgregarPeliculaDeseada/5
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaDeseada(int? id)
         {
             if (id == null)
@@ -215,6 +220,7 @@ namespace MVCPeliculas.Controllers
         // POST: Pelicula/AgregarPeliculaDeseada/5
         [HttpPost, ActionName("AgregarPeliculaDeseada")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaDeseadaConfirmed(int id)
         {
             var idUsuario = 1;
@@ -237,6 +243,7 @@ namespace MVCPeliculas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Buscar(string nombre)
         {
             var peliculas = await _context.Pelicula.Where(p => p.Nombre.Contains(nombre)).ToListAsync();

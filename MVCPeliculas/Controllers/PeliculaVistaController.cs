@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCPeliculas.Context;
-using MVCPeliculas.Models;
 
 namespace MVCPeliculas.Controllers
 {
+    [Authorize]
     public class PeliculaVistaController : Controller
     {
         private readonly PeliculaDatabaseContext _context;
@@ -20,6 +18,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaVista
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var idUsuario = 1;
@@ -28,6 +27,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaVista/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,6 +49,7 @@ namespace MVCPeliculas.Controllers
 
 
         // GET: PeliculaVista/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -71,6 +72,7 @@ namespace MVCPeliculas.Controllers
         // POST: PeliculaVista/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var peliculaVista = await _context.PeliculaVista.FirstOrDefaultAsync(m => m.Id == id);
@@ -78,7 +80,7 @@ namespace MVCPeliculas.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize]
         private bool PeliculaVistaExists(int id)
         {
             return _context.PeliculaVista.Any(e => e.UsuarioId == id);
