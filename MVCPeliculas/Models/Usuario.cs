@@ -15,7 +15,8 @@ namespace MVCPeliculas.Models
         public string Contrasenia { get; set; }
         [EnumDataType(typeof(Rol))]
         public Rol Rol { get; set; }
-        public ICollection<PeliculaVista> PeliculaVista { get; set; }
+        public List<PeliculaVista> PeliculaVista { get; set; }
+        public List<PeliculaDeseada> PeliculaDeseada { get; set; }
 
     }
 }

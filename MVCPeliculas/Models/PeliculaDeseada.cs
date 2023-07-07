@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCPeliculas.Models
 {
-    public class PeliculaVista
+    public class PeliculaDeseada
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

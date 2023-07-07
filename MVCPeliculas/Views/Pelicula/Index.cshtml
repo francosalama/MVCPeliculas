@@ -7,59 +7,29 @@
 <h1>Peliculas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Agregar Nueva Pelicula</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LinkFoto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valoracion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Anio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Plataforma)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.LinkFoto)" style="width:100px;height:100px">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valoracion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plataforma)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div class="row" style="text-align-center">
+    @foreach(var item in Model) {
+  <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="@item.LinkFoto" alt="@item.Nombre">
+  <div class="card-body">
+      <div class="row">
+        <h5 class="card-title">@item.Nombre</h5>
+        @for (int i = 0; i < item.Valoracion; i++) {
+            <img src="~/img/Estrella.png" style="width:20px;" height="20px" />
+        }
+      </div>
+    
+    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Ver mas</a>
+    <a asp-action="AgregarPeliculaVista" asp-route-id="@item.Id" class="btn btn-success">Vista</a>
+    <a asp-action="AgregarPeliculaDeseada" asp-route-id="@item.Id" class="btn btn-warning"class="btn btn-primary">Deseada</a>
+  </div>
+</div>
 }
-    </tbody>
-</table>
+</div>
+
+
+

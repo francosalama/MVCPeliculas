@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MVCPeliculas.Models.PeliculaDeseada>
+
+@{
+    ViewData["Title"] = "Peliculas Deseadas";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pelicula.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pelicula.LinkFoto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pelicula.Valoracion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pelicula.Anio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pelicula.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pelicula.Plataforma)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
+                </td>
+                <td>
+                    <img src="@item.Pelicula.LinkFoto" style="width:100px;height:100px">
+                </td>
+                <td>
+                    @for (int i = 0; i < item.Pelicula.Valoracion; i++)
+                    {
+                        <img src="~/img/Estrella.png" style="width:20px;" height="20px" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pelicula.Anio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pelicula.Genero)
+                </td>
+                <td>
+                    <img src="@("/img/" + item.Pelicula.Plataforma + ".jpg")" style="width:50px;height:50px">
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Ver mas</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
+                    <a asp-action="AgregarPeliculaVista" asp-route-id="@item.PeliculaId">Vista</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

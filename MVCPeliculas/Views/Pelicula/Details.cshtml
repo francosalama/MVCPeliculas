@@ -10,13 +10,16 @@
     <div class="row">
         <dl class="row col-7">
             <dd class="col-sm-12">
-                <img src="@Html.DisplayFor(model => model.LinkFoto)" style="width:300px;height:300px">
+                <img src="@Model.LinkFoto" style="width:300px;height:300px">
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Valoracion)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Valoracion)
+                @for (int i = 0; i < Model.Valoracion; i++)
+                {
+                    <img src="~/img/Estrella.png" style="width:20px;" height="20px" />
+                }
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Anio)
@@ -34,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.Plataforma)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Plataforma)
+                <img src="@("/img/" + Model.Plataforma + ".jpg")" style="width:50px;height:50px">
             </dd>
         </dl>
         <div class="col-5" style="margin-top: 100px">
@@ -46,5 +49,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>

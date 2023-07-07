@@ -3,14 +3,16 @@ using MVCPeliculas.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVCPeliculas.Migrations
 {
     [DbContext(typeof(PeliculaDatabaseContext))]
-    partial class PeliculaDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230703153824_vistas")]
+    partial class vistas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,26 +51,6 @@ namespace MVCPeliculas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pelicula");
-                });
-
-            modelBuilder.Entity("MVCPeliculas.Models.PeliculaDeseada", b =>
-                {
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PeliculaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("UsuarioId", "PeliculaId");
-
-                    b.HasIndex("PeliculaId");
-
-                    b.ToTable("PeliculaDeseada");
                 });
 
             modelBuilder.Entity("MVCPeliculas.Models.PeliculaVista", b =>
@@ -116,21 +98,6 @@ namespace MVCPeliculas.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuario");
-                });
-
-            modelBuilder.Entity("MVCPeliculas.Models.PeliculaDeseada", b =>
-                {
-                    b.HasOne("MVCPeliculas.Models.Pelicula", "Pelicula")
-                        .WithMany("UsuariosDeseados")
-                        .HasForeignKey("PeliculaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MVCPeliculas.Models.Usuario", "Usuario")
-                        .WithMany("PeliculaDeseada")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MVCPeliculas.Models.PeliculaVista", b =>

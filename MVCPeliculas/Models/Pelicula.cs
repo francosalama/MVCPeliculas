@@ -21,7 +21,8 @@ namespace MVCPeliculas.Models
 		public Genero Genero { get; set; }
 		[EnumDataType(typeof(Plataforma))]
 		public Plataforma Plataforma { get; set; }
-        public ICollection<PeliculaVista> PeliculaVista { get; set; }
+        public List<PeliculaVista> UsuariosVistos { get; set; }
+        public List<PeliculaDeseada> UsuariosDeseados { get; set; }
 
     }
 }

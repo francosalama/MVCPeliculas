@@ -145,6 +145,95 @@ namespace MVCPeliculas.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Pelicula/AgregarPeliculaVista/5
+        public async Task<IActionResult> AgregarPeliculaVista(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pelicula = await _context.Pelicula
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (pelicula == null)
+            {
+                return NotFound();
+            }
+
+            return View(pelicula);
+        }
+
+        // POST: Pelicula/AgregarPeliculaVista/5
+        [HttpPost, ActionName("AgregarPeliculaVista")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AgregarPeliculaVistaConfirmed(int id)
+        {
+            var idUsuario = 1;
+            var peliculaDB = await _context.PeliculaVista.Where(p => p.UsuarioId == idUsuario && p.PeliculaId == id).Include(p => p.Pelicula).FirstOrDefaultAsync();
+            if (peliculaDB == null)
+            {
+                PeliculaVista peliculaVista = new PeliculaVista();
+                peliculaVista.UsuarioId = idUsuario;
+                peliculaVista.PeliculaId = id;
+                _context.PeliculaVista.Add(peliculaVista);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            } else
+            {
+                ViewBag.ErrorPelicula = "Esta pelicula ya fue agregada como vista";
+                return View(peliculaDB.Pelicula);
+            }
+        }
+
+        // GET: Pelicula/AgregarPeliculaDeseada/5
+        public async Task<IActionResult> AgregarPeliculaDeseada(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pelicula = await _context.Pelicula
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (pelicula == null)
+            {
+                return NotFound();
+            }
+
+            return View(pelicula);
+        }
+
+        // POST: Pelicula/AgregarPeliculaDeseada/5
+        [HttpPost, ActionName("AgregarPeliculaDeseada")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AgregarPeliculaDeseadaConfirmed(int id)
+        {
+            var idUsuario = 1;
+            var peliculaDB = await _context.PeliculaDeseada.Where(p => p.UsuarioId == idUsuario && p.PeliculaId == id).Include(p => p.Pelicula).FirstOrDefaultAsync();
+            if (peliculaDB == null)
+            {
+                PeliculaDeseada peliculaDeseada = new PeliculaDeseada();
+                peliculaDeseada.UsuarioId = idUsuario;
+                peliculaDeseada.PeliculaId = id;
+                _context.PeliculaDeseada.Add(peliculaDeseada);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                ViewBag.ErrorPelicula = "Esta pelicula ya fue agregada como deseada";
+                return View(peliculaDB.Pelicula);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Buscar(string nombre)
+        {
+            var peliculas = await _context.Pelicula.Where(p => p.Nombre.Contains(nombre)).ToListAsync();
+            return View(peliculas);
+        }
+
         private bool PeliculaExists(int id)
         {
             return _context.Pelicula.Any(e => e.Id == id);
