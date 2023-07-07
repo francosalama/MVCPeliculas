@@ -1,13 +1,13 @@
-﻿@model IEnumerable<MVCPeliculas.Models.Pelicula>
+﻿@model IEnumerable<MVCPeliculas.Models.Usuario>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Peliculas</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Registro">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -16,19 +16,16 @@
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LinkFoto)
+                @Html.DisplayNameFor(model => model.Apellido)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Valoracion)
+                @Html.DisplayNameFor(model => model.Mail)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Anio)
+                @Html.DisplayNameFor(model => model.Contrasenia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Plataforma)
+                @Html.DisplayNameFor(model => model.Rol)
             </th>
             <th></th>
         </tr>
@@ -40,19 +37,16 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                <img src="@Html.DisplayFor(modelItem => item.LinkFoto)" style="width:100px;height:100px">
+                @Html.DisplayFor(modelItem => item.Apellido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Valoracion)
+                @Html.DisplayFor(modelItem => item.Mail)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Anio)
+                @Html.DisplayFor(modelItem => item.Contrasenia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Genero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plataforma)
+                @Html.DisplayFor(modelItem => item.Rol)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -61,7 +55,5 @@
             </td>
         </tr>
 }
-</div>
-
-
-
+    </tbody>
+</table>
