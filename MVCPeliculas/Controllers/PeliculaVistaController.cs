@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using MVCPeliculas.Models;
 
 namespace MVCPeliculas.Controllers
 {
+    [Authorize]
     public class PeliculaVistaController : Controller
     {
         private readonly PeliculaDatabaseContext _context;
@@ -20,14 +23,16 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaVista
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var idUsuario = 1;
+            var idUsuario = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var peliculaDatabaseContext = _context.PeliculaVista.Where(p => p.UsuarioId == idUsuario).Include(p => p.Pelicula).Include(p => p.Usuario);
             return View(await peliculaDatabaseContext.ToListAsync());
         }
 
         // GET: PeliculaVista/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,8 +52,8 @@ namespace MVCPeliculas.Controllers
             return View(peliculaVista);
         }
 
-
         // GET: PeliculaVista/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -69,6 +74,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // POST: PeliculaVista/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using MVCPeliculas.Models;
 
 namespace MVCPeliculas.Controllers
 {
+    [Authorize]
     public class PeliculaDeseadaController : Controller
     {
         private readonly PeliculaDatabaseContext _context;
@@ -20,14 +23,16 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaDeseada
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var idUsuario = 1;
+            var idUsuario = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var peliculaDatabaseContext = _context.PeliculaDeseada.Where(p => p.UsuarioId == idUsuario).Include(p => p.Pelicula).Include(p => p.Usuario);
             return View(await peliculaDatabaseContext.ToListAsync());
         }
 
         // GET: PeliculaDeseada/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +53,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: PeliculaDeseada/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -68,6 +74,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // POST: PeliculaDeseada/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -79,6 +86,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula/AgregarPeliculaVista/5
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaVista(int? id)
         {
             if (id == null)
@@ -97,11 +105,12 @@ namespace MVCPeliculas.Controllers
         }
 
         // POST: Pelicula/AgregarPeliculaVista/5
+        [Authorize]
         [HttpPost, ActionName("AgregarPeliculaVista")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AgregarPeliculaVistaConfirmed(int id)
         {
-            var idUsuario = 1;
+            var idUsuario = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var peliculaDB = await _context.PeliculaVista.Where(p => p.UsuarioId == idUsuario && p.PeliculaId == id).Include(p => p.Pelicula).FirstOrDefaultAsync();
             if (peliculaDB == null)
             {

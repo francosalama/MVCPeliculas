@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -176,7 +177,7 @@ namespace MVCPeliculas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AgregarPeliculaVistaConfirmed(int id)
         {
-            var idUsuario = 1;
+            var idUsuario = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var peliculaDB = await _context.PeliculaVista.Where(p => p.UsuarioId == idUsuario && p.PeliculaId == id).Include(p => p.Pelicula).FirstOrDefaultAsync();
             if (peliculaDB == null)
             {
@@ -217,7 +218,7 @@ namespace MVCPeliculas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AgregarPeliculaDeseadaConfirmed(int id)
         {
-            var idUsuario = 1;
+            var idUsuario = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var peliculaDB = await _context.PeliculaDeseada.Where(p => p.UsuarioId == idUsuario && p.PeliculaId == id).Include(p => p.Pelicula).FirstOrDefaultAsync();
             if (peliculaDB == null)
             {
