@@ -26,42 +26,14 @@ namespace MVCPeliculas.Controllers
             _context = context;
         }
 
-        //[Authorize]
-        // GET: Usuario
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Usuario.ToListAsync());
-        }
-
-        //[Authorize]
-        // GET: Usuario/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuario
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return View(usuario);
-        }
-
-        [AllowAnonymous]
-        // GET: Usuario/Create
+        // GET: Usuario/Registro
+        [AllowAnonymous]  
         public IActionResult Registro()
         {
             return View();
         }
 
-        // POST: Usuario/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Usuario/Registro
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -81,34 +53,20 @@ namespace MVCPeliculas.Controllers
 
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Pelicula");
+
+                return RedirectToAction("Login", "Usuario");
             }
             return View(usuario);
         }
 
-        // GET: Usuario/Edit/5
-        //[Authorize]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var usuario = await _context.Usuario.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-            return View(usuario);
-        }
-
+        // GET: Usuario/Login
         [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
-        // Verificar usuario y contraseña y logear al usuario
+
+        // POST: Usuario/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -140,21 +98,68 @@ namespace MVCPeliculas.Controllers
             return View();
         }
 
-        [HttpPost]
-        //[Authorize]
-        public async Task<IActionResult> LogOut()
+        // GET: Usuario/Logout
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index", "Home");
         }
 
+        // GET: Usuario
+        [Authorize(Roles = nameof(Rol.Admin))]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Usuario.ToListAsync());
+        }
+
+        // GET: Usuario/Details/1
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = await _context.Usuario
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return View(usuario);
+        }
+
+        // GET: Usuario/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = await _context.Usuario.FindAsync(id);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            var usuarioActualId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var usuarioActuaRol = User.FindFirstValue(ClaimTypes.Role);
+
+            if (usuario.Id.ToString() != usuarioActualId || usuarioActuaRol != nameof(Rol.Admin))
+            {
+                return Forbid();
+            }
+
+            return View(usuario);
+        }
+
         // POST: Usuario/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Mail,Contrasenia,Rol")] Usuario usuario)
         {
             if (id != usuario.Id)
@@ -180,13 +185,13 @@ namespace MVCPeliculas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Pelicula");
             }
-            return View(usuario);
+            return RedirectToAction("Index", "Pelicula");
         }
 
         // GET: Usuario/Delete/5
-        //[Authorize(Roles = nameof(Rol.Admin))]
+        [Authorize(Roles = nameof(Rol.Admin))]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -194,8 +199,8 @@ namespace MVCPeliculas.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuario
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var usuario = await _context.Usuario.FirstOrDefaultAsync(m => m.Id == id);
+
             if (usuario == null)
             {
                 return NotFound();
@@ -207,7 +212,7 @@ namespace MVCPeliculas.Controllers
         // POST: Usuario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = nameof(Rol.Admin))]
+        [Authorize(Roles = nameof(Rol.Admin))]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var usuario = await _context.Usuario.FindAsync(id);

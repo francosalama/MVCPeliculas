@@ -12,8 +12,10 @@
     <div class="prueba"></div>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" >
-            <div class="container ">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Salir</a>
+            <div class="container">
+                <p>Bienvenido: "@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value"</p>
+                <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Logout">Salir</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Details" asp-route-id="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value">Cuenta</a>
                 <a class="navbar-brand" asp-area="" asp-controller="Pelicula" asp-action="Index">Peliculas</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

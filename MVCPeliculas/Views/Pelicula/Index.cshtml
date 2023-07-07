@@ -6,9 +6,21 @@
 
 <h1>Peliculas</h1>
 
-<p>
+@if (User.IsInRole(Rol.Admin.ToString()))
+{
+    <p>Vista de administrator!</p>
+}
+
+@if (User.IsInRole(Rol.Usuario.ToString()))
+{
+    <p>Vista de usuario!</p>
+}
+
+@if (User.IsInRole(Rol.Admin.ToString()))
+{
     <a asp-action="Create">Create New</a>
-</p>
+}
+
 <table class="table">
     <thead>
         <tr>

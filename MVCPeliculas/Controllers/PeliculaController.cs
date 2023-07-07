@@ -11,7 +11,7 @@ using MVCPeliculas.Models;
 
 namespace MVCPeliculas.Controllers
 {
-    
+    [Authorize]
     public class PeliculaController : Controller
     {
         private readonly PeliculaDatabaseContext _context;
@@ -46,6 +46,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula/Create
+        [Authorize(Roles = nameof(Rol.Admin))]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +57,7 @@ namespace MVCPeliculas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Admin))]
         public async Task<IActionResult> Create([Bind("Id,Nombre,LinkFoto,Valoracion,Anio,Sinopsis,Genero,Plataforma")] Pelicula pelicula)
         {
             if (ModelState.IsValid)
@@ -68,6 +70,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula/Edit/5
+        [Authorize(Roles = nameof(Rol.Admin))]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,6 +91,7 @@ namespace MVCPeliculas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Admin))]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,LinkFoto,Valoracion,Anio,Sinopsis,Genero,Plataforma")] Pelicula pelicula)
         {
             if (id != pelicula.Id)
@@ -119,6 +123,7 @@ namespace MVCPeliculas.Controllers
         }
 
         // GET: Pelicula/Delete/5
+        [Authorize(Roles = nameof(Rol.Admin))]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,6 +144,7 @@ namespace MVCPeliculas.Controllers
         // POST: Pelicula/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Rol.Admin))]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pelicula = await _context.Pelicula.FindAsync(id);
@@ -147,6 +153,7 @@ namespace MVCPeliculas.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = nameof(Rol.Admin))]
         private bool PeliculaExists(int id)
         {
             return _context.Pelicula.Any(e => e.Id == id);
