@@ -77,6 +77,7 @@ namespace MVCPeliculas.Controllers
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var peliculaDeseada = await _context.PeliculaDeseada.FirstOrDefaultAsync(m => m.Id == id);
@@ -108,6 +109,7 @@ namespace MVCPeliculas.Controllers
         [Authorize]
         [HttpPost, ActionName("AgregarPeliculaVista")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> AgregarPeliculaVistaConfirmed(int id)
         {
             var idUsuario = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -129,7 +131,7 @@ namespace MVCPeliculas.Controllers
                 return View(peliculaDB.Pelicula);
             }
         }
-
+        [Authorize]
         private bool PeliculaDeseadaExists(int id)
         {
             return _context.PeliculaDeseada.Any(e => e.UsuarioId == id);

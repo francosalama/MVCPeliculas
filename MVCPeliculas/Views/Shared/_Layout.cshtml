@@ -13,24 +13,36 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" >
             <div class="container">
-                <p>Bienvenido: "@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value"</p>
-                <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Logout">Salir</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Details" asp-route-id="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value">Cuenta</a>
-                <a class="navbar-brand" asp-area="" asp-controller="Pelicula" asp-action="Index">Peliculas</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h6>Bienvenido: "@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value"</h6>
+
+                    <a class="navbar-brand" asp-area="" asp-controller="Pelicula" asp-action="Index">Peliculas</a>
+
+                    if (User.IsInRole(Rol.Usuario.ToString()))
+                    {
+                        <a class="navbar-brand" asp-area="" asp-controller="PeliculaVista" asp-action="Index">Peliculas Vistas</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="PeliculaDeseada" asp-action="Index">Peliculas Deseadas</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Details"
+                        asp-route-id="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value">Cuenta</a>
+                    }
+
+                    if (User.IsInRole(Rol.Admin.ToString()))
+                    {
+                        <a class="navbar-brand" asp-controller="Usuario" asp-action="Index">Lista de usuarios</a>
+                    }
+
+                    <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Logout">Salir</a>
+                }
+                 @if (!User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Registro">Registrarse</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Usuario" asp-action="Login">Ingresar</a>
+                }
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PeliculaVista" asp-action="Index">Peliculas Vistas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PeliculaDeseada" asp-action="Index">Peliculas Deseadas</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </nav>
     </header>

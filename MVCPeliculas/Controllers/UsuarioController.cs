@@ -81,7 +81,6 @@ namespace MVCPeliculas.Controllers
                     ClaimsIdentity identidad = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
 
                     identidad.AddClaim(new Claim(ClaimTypes.Email, usuario.Mail));
-                    identidad.AddClaim(new Claim(ClaimTypes.GivenName, usuario.Nombre));
                     identidad.AddClaim(new Claim(ClaimTypes.Role, usuario.Rol.ToString()));
                     identidad.AddClaim(new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()));
 
@@ -152,7 +151,7 @@ namespace MVCPeliculas.Controllers
             var usuarioActualId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var usuarioActuaRol = User.FindFirstValue(ClaimTypes.Role);
 
-            if (usuario.Id.ToString() != usuarioActualId || usuarioActuaRol != nameof(Rol.Admin))
+            if (usuario.Id.ToString() != usuarioActualId && usuarioActuaRol != nameof(Rol.Admin))
             {
                 return Forbid();
             }

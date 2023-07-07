@@ -6,23 +6,9 @@
 
 <h1>Peliculas</h1>
 
-<p>
-    <a asp-action="Create">Agregar Nueva Pelicula</a>
-</p>
-
 @if (User.IsInRole(Rol.Admin.ToString()))
 {
-    <p>Vista de administrator!</p>
-}
-
-@if (User.IsInRole(Rol.Usuario.ToString()))
-{
-    <p>Vista de usuario!</p>
-}
-
-@if (User.IsInRole(Rol.Admin.ToString()))
-{
-    <a asp-action="Create">Create New</a>
+     <a asp-action="Create">Agregar Nueva Pelicula</a> 
 }
 
 <div class="row" style="text-align-center">
@@ -39,11 +25,19 @@
                     }
                 </div>
 
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Ver mas</a>
-                <a asp-action="AgregarPeliculaVista" asp-route-id="@item.Id" class="btn btn-success">Vista</a>
-                <a asp-action="AgregarPeliculaDeseada" asp-route-id="@item.Id" class="btn btn-warning" class="btn btn-primary">Deseada</a>
+                @if (User.IsInRole(Rol.Admin.ToString()))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
+                }
+
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+
+                @if (User.IsInRole(Rol.Usuario.ToString()))
+                {
+                    <a asp-action="AgregarPeliculaVista" asp-route-id="@item.Id" class="btn btn-success">Vista</a>
+                    <a asp-action="AgregarPeliculaDeseada" asp-route-id="@item.Id" class="btn btn-warning" class="btn btn-primary">Deseada</a>
+                }
             </div>
         </div>
     }
