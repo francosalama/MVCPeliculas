@@ -129,6 +129,14 @@ namespace MVCPeliculas.Controllers
                 return NotFound();
             }
 
+            var usuarioActualId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var usuarioActuaRol = User.FindFirstValue(ClaimTypes.Role);
+
+            if (usuario.Id.ToString() != usuarioActualId && usuarioActuaRol != nameof(Rol.Admin))
+            {
+                return Forbid();
+            }
+
             return View(usuario);
         }
 
