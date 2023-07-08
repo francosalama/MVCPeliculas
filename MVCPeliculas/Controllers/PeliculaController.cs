@@ -242,12 +242,10 @@ namespace MVCPeliculas.Controllers
             }
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> Buscar(string nombre)
         {
-            var peliculas = await _context.Pelicula.Where(p => p.Nombre.Contains(nombre)).ToListAsync();
+            var peliculas = await _context.Pelicula.Where(p => p.Nombre.StartsWith(nombre)).ToListAsync();
             return View(peliculas);
         }
 
