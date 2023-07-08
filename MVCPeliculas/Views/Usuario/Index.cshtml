@@ -5,7 +5,7 @@
 }
 
 <h1>Lista de usuarios registrados</h1>
-<table class="table">
+<table class="table" style="color:white">
     <thead>
         <tr>
             <th>
@@ -16,9 +16,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contrasenia)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Rol)
@@ -39,15 +36,12 @@
                 @Html.DisplayFor(modelItem => item.Mail)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contrasenia)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Rol)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
 }

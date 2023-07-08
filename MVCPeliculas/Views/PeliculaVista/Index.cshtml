@@ -4,59 +4,34 @@
     ViewData["Title"] = "Peliculas Vistas";
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Pelicula.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pelicula.LinkFoto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pelicula.Valoracion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pelicula.Anio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pelicula.Genero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pelicula.Plataforma)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
-                </td>
-                <td>
-                    <img src="@item.Pelicula.LinkFoto" style="width:100px;height:100px">
-                </td>
-                <td>
+@if (Model.Count() == 0)
+{
+    <h1 style="text-align:center;">No tenes ninguna pelicula vista</h1>
+}
+
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="@item.Pelicula.LinkFoto" alt="@item.Pelicula.Nombre">
+            <div class="card-body">
+                <div class="row">
+                    <h5 class="card-title" style="margin-right:10px">@item.Pelicula.Nombre</h5>
                     @for (int i = 0; i < item.Pelicula.Valoracion; i++)
                     {
                         <img src="~/img/Estrella.png" style="width:20px;" height="20px" />
                     }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pelicula.Anio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pelicula.Genero)
-                </td>
-                <td>
-                    <img src="@("/img/" + item.Pelicula.Plataforma + ".jpg")" style="width:50px;height:50px">
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Ver mas</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <img src="@("/img/" + item.Pelicula.Plataforma + ".jpg")" style="width:30px; height:30px; margin-left:20px;">
+                </div>
+
+                <div class="row justify-content-center">
+                    @if (User.IsInRole(Rol.Usuario.ToString()))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info boton">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger boton">Eliminar</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
