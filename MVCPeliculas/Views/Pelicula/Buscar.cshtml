@@ -4,12 +4,24 @@
     ViewData["Title"] = "Peliculas";
 }
 
-<form method="get" action="@Url.Action("Buscar", "Pelicula")">
-    <div class="row justify-content-center">
-        <input type="text" name="nombre" placeholder="Escriba el nombre de la pelicula..." class="form-control" style="width:500px;" />
-        <input type="submit" value="Buscar" class="btn btn-success" style="margin-left:10px;" />
-    </div>
-</form>
+<div class="row">
+    <form method="get" action="@Url.Action("Buscar", "Pelicula")">
+        <div class="row">
+            <input type="text" name="nombre" placeholder="Escriba el nombre de la pelicula..." class="form-control" style="width:500px;" />
+            <input type="submit" value="Buscar" class="btn btn-success" style="margin-left:10px;" />
+        </div>
+    </form>
+
+    <form method="get" action="@Url.Action("Filtrar", "Pelicula")" style="margin-left: 50px;">
+        <div class="row">
+            <input type="number" name="valoracion" min="1" max="5" placeholder="Valoracion" class="form-control" style="width:200px;" />
+            <select class="form-control" name="genero" asp-items="Html.GetEnumSelectList<Genero>()" style="width:200px; margin-left:10px;">
+                <option selected="selected" value="-1">Genero</option>
+            </select>
+            <input type="submit" value="Filtrar" class="btn btn-info" style="margin-left:10px;" />
+        </div>
+    </form>
+</div>
 
 @if (Model.Count() == 0)
 {
