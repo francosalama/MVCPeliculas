@@ -9,7 +9,7 @@
     <div class="row">
         <dl class="row col-7">
             <dd class="col-sm-12">
-                <img src="@Model.Pelicula.LinkFoto" style="width:300px;height:300px">
+                <img src="@Html.DisplayFor(model => model.Pelicula.LinkFoto)" style="width:300px;height:300px">
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Pelicula.Valoracion)
