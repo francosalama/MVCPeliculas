@@ -6,7 +6,7 @@
 
 <form method="get" action="@Url.Action("Buscar", "Pelicula")">
     <div class="row justify-content-center">
-        <input type="text" name="nombre" placeholder="Escriba el nombre de la pelicula..." class="form-control" style="width:500px;" />
+        <input type="text" name="nombre" placeholder="Escriba el nombre de la pelicula..." class="form-control sombra" style="width:500px;" />
         <input type="submit" value="Buscar" class="btn btn-success" style="margin-left:10px;" />
     </div>  
 </form>
@@ -50,7 +50,7 @@
 
 @if (User.IsInRole(Rol.Admin.ToString()))
 {
-    <a asp-action="Create" style="margin-left: 800px; margin-top:300px" class="btn btn-primary">Agregar Nueva Pelicula</a>
+    <a asp-action="Create" style="margin-left: 400px; margin-top:250px" class="btn btn-primary">Agregar Pelicula (Solo Admin)</a>
 }
 
 
