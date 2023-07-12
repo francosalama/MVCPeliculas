@@ -14,7 +14,7 @@ namespace MVCPeliculas.Models
 
         [Required(ErrorMessage = "Falta llenar campo de nombre"), MaxLength(40)]
         [RegularExpression(@"^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$",
-            ErrorMessage = "el campo {0} no admite numeros")]
+            ErrorMessage = "Formato invalido")]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "Falta llenar campo de apellido"), MaxLength(40)]
@@ -35,6 +35,5 @@ namespace MVCPeliculas.Models
         public Rol Rol { get; set; } = Rol.Usuario;
         public List<PeliculaVista> PeliculaVista { get; set; }
         public List<PeliculaDeseada> PeliculaDeseada { get; set; }
-
     }
 }

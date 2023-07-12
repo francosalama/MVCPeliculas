@@ -249,6 +249,26 @@ namespace MVCPeliculas.Controllers
             return View(peliculas);
         }
 
+        [Authorize]
+        public async Task<IActionResult> Filtrar(int valoracion, int genero)
+        {
+            List<Pelicula> peliculas = new List<Pelicula>();
+            if (valoracion != 0 && genero != -1)
+            {
+                peliculas = await _context.Pelicula.Where(p => p.Genero == (Genero) Enum.GetValues(typeof(Genero)).GetValue(genero) && p.Valoracion == valoracion).ToListAsync();
+            }
+            else if (valoracion != 0)
+            {
+                peliculas = await _context.Pelicula.Where(p => p.Valoracion == valoracion).ToListAsync();
+            }
+            else if (genero != -1)
+            {
+                peliculas = await _context.Pelicula.Where(p => p.Genero == (Genero) Enum.GetValues(typeof(Genero)).GetValue(genero)).ToListAsync();
+            }
+
+            return View(peliculas);
+        }
+
         [Authorize(Roles = nameof(Rol.Admin))]
         private bool PeliculaExists(int id)
         {
