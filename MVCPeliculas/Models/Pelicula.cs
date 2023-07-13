@@ -19,7 +19,7 @@ namespace MVCPeliculas.Models
 
         [Range(1, 5, ErrorMessage = "Solo se admiten una valoracion entre {1} y {2}")]
         [Required(ErrorMessage = "Falta llenar campo de valoracion")]
-        public int Valoracion { get; set; }
+        public int Valoracion { get; set; } 
 
         [Display(Name = "Año")]
         [Required(ErrorMessage = "Falta llenar campo de año")]
