@@ -6,7 +6,7 @@
 
 
 <div>
-    <h1>@Html.DisplayFor(model => model.Nombre)</h1>
+    <h1 class="display-4 titulo">@Html.DisplayFor(model => model.Nombre)</h1>
     <div class="row">
         <dl class="row col-7">
             <dd class="col-sm-12">
@@ -40,7 +40,7 @@
                 <img src="@("/img/" + Model.Plataforma + ".jpg")" style="width:50px;height:50px">
             </dd>
         </dl>
-        <div class="col-5" style="margin-top: 100px">
+        <div class="col-4" style="margin-top: 100px">
             <p>
                 @Html.DisplayFor(model => model.Sinopsis)
             </p>
