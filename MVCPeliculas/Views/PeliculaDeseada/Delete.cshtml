@@ -6,32 +6,56 @@
 
 <h3>¿Estas seguro que queres eliminar esta pelicula de tus deseadas?</h3>
 <div>
-    <h4>PeliculaDeseada</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.Id)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pelicula)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pelicula.Id)
-        </dd class>
-    </dl>
-    
+    <div class="row">
+        <dl class="row col-7">
+            <dd class="col-sm-12">
+                <img src="@Model.Pelicula.LinkFoto" style="width:300px;height:300px">
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pelicula.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pelicula.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pelicula.Valoracion)
+            </dt>
+            <dd class="col-sm-10">
+                @for (int i = 0; i < Model.Pelicula.Valoracion; i++)
+                {
+                    <img src="~/img/Estrella.png" style="width:20px;" height="20px" />
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pelicula.Anio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pelicula.Anio)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pelicula.Genero)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pelicula.Genero)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pelicula.Plataforma)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@("/img/" + Model.Pelicula.Plataforma + ".jpg")" style="width:50px;height:50px">
+            </dd>
+        </dl>
+        <div class="col-5" style="margin-top: 100px">
+            <p>
+                @Html.DisplayFor(model => model.Pelicula.Sinopsis)
+            </p>
+        </div>
+    </div>
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-info">Volver</a>
     </form>
 </div>
